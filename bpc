@@ -1,0 +1,19 @@
+#!/bin/sh
+
+ENC=cp866
+DEHOME="$HOME/.dosemu"
+DOSEMU="/etc/dosemu"
+
+case "$#" in
+    0)
+        rm -f "$DEHOME/drives/e"
+	ln -s "$(pwd)" "$DEHOME/drives/e"
+        echo '\n' | xdosemu -i$DOSEMU bpce
+        ;;
+    *)
+        FILE="$1"; shift
+        DIR="$(dirname $(realpath $FILE))"
+        rm -f "$DEHOME/drives/e" ; ln -s "$DIR" "$DEHOME/drives/e"
+        echo '\n' | dosemu -i$DOSEMU -dumb "bpce $(iconv -t $ENC <<< "$(basename $FILE) $*")" | iconv -f $ENC | tr '[[:upper:]]' '[[:lower:]]'
+        ;;
+esac
