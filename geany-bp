@@ -1,0 +1,1 @@
+mkdir -p ~/.config/geany-bp && mkdir -p ~/.config/geany-bp/filedefs && cp /usr/share/geany-bp/filetypes.pascal ~/.config/geany-bp/filedefs/filetypes.pascal && geany -c ~/.config/geany-bp/
